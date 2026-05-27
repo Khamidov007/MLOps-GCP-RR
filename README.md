@@ -7,77 +7,90 @@ This project is a reproduction of the UAE Property Valuator machine learning pip
 
 ---
 
-##  Project Scope and Goals
+## 👥 Team Members
 
-The primary goal was to validate the reproducibility of the original Python-based ML results using the R programming ecosystem. 
-
-**What was successfully reproduced:**
-- **Exploratory Data Analysis (EDA):** Recreated all major visualisations and data insights (Target distribution, Geographic spread, Correlation heatmaps, etc.) using `ggplot2`, `corrplot`, and `skimr`.
-- **Machine Learning Modeling:** Successfully trained, evaluated, and compared several models predicting property prices (log1p scale). 
-  - *Models used:* OLS, Ridge, ElasticNet, Random Forest, XGBoost, LightGBM, and a Stacking Ensemble (via `caretEnsemble`).
-  - *Outcome:* We managed to reproduce the same high-quality results and predictive performance as the original Python implementation.
-
-**What was excluded (Out of Scope):**
-- **Feature Engineering:** The original feature engineering pipeline was heavily reliant on specific Python libraries and was excluded due to time constraints. We used the pre-processed data for our R modeling pipeline.
-- **Deployment & MLOps:** The deployment components (FastAPI backend, Streamlit frontend, Docker containerisation, MLflow tracking, and GCP Cloud Run) were not translated to R, as they were beyond the scope of this reproducibility exercise.
+| Name | Student Number |
+| :--- | :--- |
+| [Mukhammadkodir Abdusalomov] | [474664] |
+| [Mirzakalonboy Khamidov] | [474***] |
+| [Elbek Majidov] | [474***] |
 
 ---
 
-##  Repository Structure
+## 🔄 Language Translation (Python to R)
 
-The key files for this R reproduction can be found in the `Notebooks` directory:
+**Original Implementation:** Python
+- Used libraries: `pandas`, `scikit-learn`, `xgboost`, `lightgbm`, `matplotlib`, `seaborn`
+- Environment: Jupyter Notebooks (`.ipynb`)
+
+**Reproduced Implementation:** R
+- Used libraries: `tidyverse` (`dplyr`, `ggplot2`), `caret`, `xgboost`, `lightgbm`, `randomForest`, `glmnet`
+- Environment: R Markdown (`.Rmd`)
+
+The primary goal was to validate the reproducibility of the original Python-based ML results using the R programming ecosystem. We successfully translated the data manipulation, statistical modeling, and model evaluation components from Python to R.
+
+---
+
+## 📦 Dependencies and Requirements
+
+To run this reproducible pipeline, you must have the following dependencies installed:
+
+- **R Version:** 4.0 or higher
+- **IDE:** RStudio (Recommended)
+- **R Packages:**
+  - Data Manipulation & I/O: `arrow`, `tidyverse`
+  - EDA & Visualisation: `skimr`, `corrplot`, `scales`, `gridExtra`
+  - Machine Learning & Modeling: `caret`, `glmnet`, `randomForest`, `xgboost`, `lightgbm`, `caretEnsemble`
+  - Evaluation & Metrics: `Metrics`, `vip`
+  - Parallel Processing: `doParallel`
+
+*(Note: The first chunk in the `.Rmd` file includes an auto-install script that will automatically download and install any missing packages from CRAN).*
+
+---
+
+## 🎯 Project Scope and Goals
+
+**What was successfully reproduced:**
+- **Exploratory Data Analysis (EDA):** Recreated all major visualisations and data insights (Target distribution, Geographic spread, Correlation heatmaps, etc.).
+- **Machine Learning Modeling:** Successfully trained, evaluated, and compared several models predicting property prices (log1p scale). 
+  - *Models used:* OLS, Ridge, ElasticNet, Random Forest, XGBoost, LightGBM, and a Stacking Ensemble.
+  - *Outcome:* We managed to reproduce the same high-quality results and predictive performance as the original Python implementation.
+
+**What was excluded (Out of Scope):**
+- **Feature Engineering:** The original feature engineering pipeline was heavily reliant on specific Python spatial libraries and was excluded due to time constraints. We used the pre-processed data for our R modeling pipeline.
+- **Deployment & MLOps:** The deployment components (FastAPI backend, Streamlit frontend, Docker containerisation, MLflow tracking, and GCP Cloud Run) were not translated to R.
+
+---
+
+## 📁 Repository Structure
 
 ```text
-Google-MLOps-UAE/
+MLOps-GCP-RR/
 ├── Data/               # Processed datasets (parquet format)
 ├── Notebooks/          
-│   ├── dubai_houses_ml.Rmd   # The main R Markdown file containing the reproduced pipeline
-│   ├── dubai_houses_ml.html  # The knitted HTML report of the Rmd file
+│   ├── dubai_houses_ml.Rmd   # Main R Markdown file containing the reproduced pipeline
+│   ├── dubai_houses_ml.html  # Knitted HTML report of the Rmd file
 │   └── models/               # Saved R models (.rds, .model, .txt)
 └── README.md           # Project documentation (this file)
 ```
 
-*(Note: The original Python files, Docker configurations, and Front-End code remain in the repository for reference but are not part of the R reproduction workflow).*
-
 ---
 
-##  Getting Started
-
-### Prerequisites
-- R (version 4.0 or higher recommended)
-- RStudio (optional, but recommended for viewing and running the `.Rmd` file)
+## 🚀 Getting Started
 
 ### Running the R Pipeline
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Mukhammadkodir27/Google-MLOps-Reg-UAE.git
-   cd Google-MLOps-Reg-UAE
+   git clone https://github.com/Mukhammadkodir27/MLOps-GCP-RR.git
+   cd MLOps-GCP-RR
    ```
 
 2. **Open the R Markdown file:**
    Open `Notebooks/dubai_houses_ml.Rmd` in RStudio.
 
 3. **Install Dependencies:**
-   The `.Rmd` file includes an auto-install script in the first code chunk that will install all required packages (e.g., `tidyverse`, `caret`, `xgboost`, `lightgbm`, `arrow`).
+   Run the setup chunk in the notebook, which handles the `install.packages()` logic automatically.
 
 4. **Knit the Document:**
    Click the **Knit** button in RStudio to run the entire pipeline and generate the HTML report, or run the chunks sequentially to explore the data and models interactively.
-
----
-
-##  Machine Learning Pipeline in R
-
-The reproduced pipeline follows these steps:
-1. **Data Loading:** Reads pre-processed `.parquet` files using the `arrow` package.
-2. **EDA:** Comprehensive visualizations mimicking the original notebook's insights.
-3. **Cross-Validation Setup:** Parallelized cross-validation using `caret` and `doParallel` to speed up training.
-4. **Model Training:** Training baseline models (LM, Ridge, ElasticNet), intermediate models (Random Forest), and advanced Gradient Boosting models (XGBoost, LightGBM).
-5. **Stacking Ensemble:** Combining predictions using `caretEnsemble` for a robust final model.
-6. **Evaluation:** Comparing models based on MAE, RMSE, and R² on both log-scale and the original AED scale.
-
----
-
-##  Acknowledgements
-
-This reproducibility project was developed for educational purposes to demonstrate cross-language ML pipeline recreation. The original Python architecture and this R reproduction both showcase the robustness of modern open-source data science tools.
