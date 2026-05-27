@@ -7,7 +7,7 @@ This project is a reproduction of the UAE Property Valuator machine learning pip
 
 ---
 
-## 👥 Team Members
+##  Team Members
 
 | Name | Student Number |
 | :--- | :--- |
@@ -17,7 +17,7 @@ This project is a reproduction of the UAE Property Valuator machine learning pip
 
 ---
 
-## 🔄 Language Translation (Python to R)
+##  Language Translation (Python to R)
 
 **Original Implementation:** Python
 - Used libraries: `pandas`, `scikit-learn`, `xgboost`, `lightgbm`, `matplotlib`, `seaborn`
@@ -31,7 +31,7 @@ The primary goal was to validate the reproducibility of the original Python-base
 
 ---
 
-## 📦 Dependencies and Requirements
+##  Dependencies and Requirements
 
 To run this reproducible pipeline, you must have the following dependencies installed:
 
@@ -48,7 +48,7 @@ To run this reproducible pipeline, you must have the following dependencies inst
 
 ---
 
-## 🎯 Project Scope and Goals
+##  Project Scope and Goals
 
 **What was successfully reproduced:**
 - **Exploratory Data Analysis (EDA):** Recreated all major visualisations and data insights (Target distribution, Geographic spread, Correlation heatmaps, etc.).
@@ -62,7 +62,7 @@ To run this reproducible pipeline, you must have the following dependencies inst
 
 ---
 
-## 📁 Repository Structure
+##  Repository Structure
 
 ```text
 MLOps-GCP-RR/
@@ -76,7 +76,7 @@ MLOps-GCP-RR/
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Running the R Pipeline
 
