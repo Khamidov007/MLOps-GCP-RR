@@ -23,6 +23,12 @@ knitr::opts_chunk$set(
 )
 ```
 
+> [!IMPORTANT]
+> **Notice Board: Hardware Constraints**
+> Due to the lack of GPU availability in this environment, model training strictly utilizes the CPU. To maintain reasonable execution times, the hyperparameter grids for our models (Random Forest, XGBoost, LightGBM) have been simplified compared to the advanced Python version. While this limits peak model performance slightly, the underlying ML pipeline structure remains fully reproducible and robust.
+
+---
+
 ---
 
 # 0. Auto-install & Load Packages
@@ -146,6 +152,18 @@ df_train %>%
   geom_violin(fill = "#9ecae1", alpha = .7) +
   geom_boxplot(width = .1, outlier.size = .5) +
   labs(title = "log1p(Price) by Number of Beds", x = "Beds", y = "log1p(Price)") +
+  theme_minimal()
+```
+
+# 3.4b Baths vs Price
+
+```{r eda-baths, fig.height=5}
+df_train %>%
+  filter(baths <= 10) %>%
+  ggplot(aes(x = factor(baths), y = price_log1p)) +
+  geom_violin(fill = "#bcbddc", alpha = .7) +
+  geom_boxplot(width = .1, outlier.size = .5) +
+  labs(title = "log1p(Price) by Number of Baths", x = "Baths", y = "log1p(Price)") +
   theme_minimal()
 ```
 
