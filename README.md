@@ -12,7 +12,7 @@ This project is a reproduction of the UAE Property Valuator machine learning pip
 | Name | Student Number |
 | :--- | :--- |
 | [Mukhammadkodir Abdusalomov] | [474664] |
-| [Mirzakalonboy Khamidov] | [474***] |
+| [Mirzakalonboy Khamidov] | [474561] |
 | [Elbek Majidov] | [474***] |
 
 ---
