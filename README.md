@@ -1,139 +1,83 @@
-# 🇦🇪 UAE Real Estate Price Prediction Platform
+# 🇦🇪 UAE Property Valuator - R Reproducibility Project
 
-**Live App:** https://mukhammadkodir-real-estate.streamlit.app/
+![R](https://img.shields.io/badge/R-4.0+-276DC3?logo=r&logoColor=white)
+![RStudio](https://img.shields.io/badge/RStudio-IDE-75AADB?logo=rstudio&logoColor=white)
 
-> **Reproducible Research Project** — This project reproduces an existing Python-based ML pipeline for Dubai property price prediction, re-implementing the modeling and analysis in **R**. The original project was built in Python; this version converts the workflow to R, with feature engineering done in R where possible, or using preprocessed data as input to the R modeling pipeline.
-
----
-
-## 👥 Group Members
-
-| Name | Role |
-|------|------|
-| Mukhammadkodir Abdusalomov | ML Pipeline & Feature Engineering |
-| Elbek Majidov | Cloud Infrastructure & Deployment |
-| Mirzakalonboy Khamidov | AI Chatbot & API Integration |
+This project is a reproduction of the UAE Property Valuator machine learning pipeline. The original project was built using Python (Jupyter Notebooks) as an end-to-end MLOps pipeline. As part of a reproducible research initiative, we successfully recreated the exploratory data analysis (EDA) and machine learning modeling stages entirely in **R**.
 
 ---
 
-## Research Question
+## 🎯 Project Scope and Goals
 
-Can we accurately predict residential property prices in Dubai using structured real estate transaction data — and can a generative AI layer translate these predictions into natural, human-readable insights?
+The primary goal was to validate the reproducibility of the original Python-based ML results using the R programming ecosystem. 
 
-**Secondary questions:**
-- Which features (location, size, property type, floor, etc.) are the strongest predictors of price?
-- How well does a stacked ensemble model outperform individual regression baselines?
-- Can the original Python pipeline be faithfully reproduced in R?
+**What was successfully reproduced:**
+- **Exploratory Data Analysis (EDA):** Recreated all major visualisations and data insights (Target distribution, Geographic spread, Correlation heatmaps, etc.) using `ggplot2`, `corrplot`, and `skimr`.
+- **Machine Learning Modeling:** Successfully trained, evaluated, and compared several models predicting property prices (log1p scale). 
+  - *Models used:* OLS, Ridge, ElasticNet, Random Forest, XGBoost, LightGBM, and a Stacking Ensemble (via `caretEnsemble`).
+  - *Outcome:* We managed to reproduce the same high-quality results and predictive performance as the original Python implementation.
 
----
-
-## Original Project & Language Conversion
-
-| | Original | This Reproduction |
-|---|---|---|
-| **Language** | Python 3.10+ | R |
-| **ML Libraries** | scikit-learn, XGBoost, LightGBM | caret / tidymodels, xgboost, lightgbm |
-| **Data Wrangling** | pandas, NumPy | dplyr, tidyr |
-| **API / Backend** | FastAPI | (same or adapted) |
-| **Generative AI** | Google Gemini API | Google Gemini API |
-
-Feature engineering is reproduced in R where feasible. If a preprocessing step is not directly translatable, we use the processed dataset from the original pipeline as input to the R modeling stage.
+**What was excluded (Out of Scope):**
+- **Feature Engineering:** The original feature engineering pipeline was heavily reliant on specific Python libraries and was excluded due to time constraints. We used the pre-processed data for our R modeling pipeline.
+- **Deployment & MLOps:** The deployment components (FastAPI backend, Streamlit frontend, Docker containerisation, MLflow tracking, and GCP Cloud Run) were not translated to R, as they were beyond the scope of this reproducibility exercise.
 
 ---
 
-## Data Source
+## 📁 Repository Structure
 
-- **Source:** Dubai Land Department (DLD) — publicly available transaction records
-- **Key Features:** Property type, area (sq ft), district, bedrooms, floor, transaction date, price per sq ft, total price
-- **Scale:** Large tabular dataset with high-dimensional categorical and numerical features
+The key files for this R reproduction can be found in the `Notebooks` directory:
 
----
-
-## Approach
-
-**1. Data Preparation (R)**
-- Cleaning, type normalization, missing value treatment
-- Outlier detection (IQR-based and model-based)
-- Feature engineering: price-per-sqft ratios, district aggregations, temporal features
-
-**2. Modeling (R)**
-- Baselines: Linear Regression, Ridge, Lasso, Decision Tree
-- Advanced: XGBoost, LightGBM, Random Forest
-- Final: Stacked Ensemble with a meta-regressor
-- Metrics: RMSE, MAE, R²
-
-**3. Generative AI Layer**
-- Gemini API chatbot for natural language predictions
-- Zero/few-shot prompting for safe, reliable responses
-
-**4. Deployment**
-- Dockerized FastAPI backend
-- Google Kubernetes Engine (GKE) for scalable deployment
-
----
-
-## Tools & Stack
-
-| Category | Tools |
-|----------|-------|
-| **Reproduction Language** | R |
-| **R Packages** | tidymodels, caret, xgboost, lightgbm, dplyr, ggplot2 |
-| **Original Language** | Python 3.10+ |
-| **Generative AI** | Google Gemini API |
-| **Backend** | FastAPI |
-| **Cloud / Deployment** | GCP, Docker, Kubernetes (GKE) |
-| **Version Control** | Git, GitKraken |
-
----
-
-## Repository Structure
-
-```
-dubai-realestate-prediction/
-├── data/                  # Raw and processed datasets
-├── notebooks/             # EDA (R Markdown / Jupyter)
-├── R/                     # R scripts: preprocessing, modeling, evaluation
-├── src/
-│   ├── preprocessing/     # Original Python preprocessing (reference)
-│   └── api/               # FastAPI + Gemini chatbot
-├── docker/
-├── k8s/
-├── requirements.txt       # Python dependencies
-├── renv.lock              # R environment lockfile
-└── README.md
+```text
+Google-MLOps-UAE/
+├── Data/               # Processed datasets (parquet format)
+├── Notebooks/          
+│   ├── dubai_houses_ml.Rmd   # The main R Markdown file containing the reproduced pipeline
+│   ├── dubai_houses_ml.html  # The knitted HTML report of the Rmd file
+│   └── models/               # Saved R models (.rds, .model, .txt)
+└── README.md           # Project documentation (this file)
 ```
 
----
-
-## Reproducing This Project
-
-```bash
-# Clone the repository
-git clone https://github.com/your-org/dubai-realestate-prediction.git
-cd dubai-realestate-prediction
-
-# R environment
-Rscript -e "renv::restore()"
-
-# Run the R modeling pipeline
-Rscript R/train_model.R
-
-# Python backend (optional)
-pip install -r requirements.txt
-uvicorn src.api.main:app --reload
-
-# Or run via Docker
-docker build -t dubai-ml .
-docker run -p 8000:8000 dubai-ml
-```
+*(Note: The original Python files, Docker configurations, and Front-End code remain in the repository for reference but are not part of the R reproduction workflow).*
 
 ---
 
-## Status
+## 🚀 Getting Started
 
-- [x] Original Python ML pipeline (reference implementation)
-- [ ] Stacked ensemble model with feature engineering (Python)
-- [ ] R reproduction of feature engineering and modeling
-- [ ] Gemini API chatbot integration
-- [ ] GCP + Docker + Kubernetes deployment
-- [ ] Final evaluation and comparison of Python vs R results
+### Prerequisites
+- R (version 4.0 or higher recommended)
+- RStudio (optional, but recommended for viewing and running the `.Rmd` file)
+
+### Running the R Pipeline
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Mukhammadkodir27/Google-MLOps-Reg-UAE.git
+   cd Google-MLOps-Reg-UAE
+   ```
+
+2. **Open the R Markdown file:**
+   Open `Notebooks/dubai_houses_ml.Rmd` in RStudio.
+
+3. **Install Dependencies:**
+   The `.Rmd` file includes an auto-install script in the first code chunk that will install all required packages (e.g., `tidyverse`, `caret`, `xgboost`, `lightgbm`, `arrow`).
+
+4. **Knit the Document:**
+   Click the **Knit** button in RStudio to run the entire pipeline and generate the HTML report, or run the chunks sequentially to explore the data and models interactively.
+
+---
+
+## 🧠 Machine Learning Pipeline in R
+
+The reproduced pipeline follows these steps:
+1. **Data Loading:** Reads pre-processed `.parquet` files using the `arrow` package.
+2. **EDA:** Comprehensive visualizations mimicking the original notebook's insights.
+3. **Cross-Validation Setup:** Parallelized cross-validation using `caret` and `doParallel` to speed up training.
+4. **Model Training:** Training baseline models (LM, Ridge, ElasticNet), intermediate models (Random Forest), and advanced Gradient Boosting models (XGBoost, LightGBM).
+5. **Stacking Ensemble:** Combining predictions using `caretEnsemble` for a robust final model.
+6. **Evaluation:** Comparing models based on MAE, RMSE, and R² on both log-scale and the original AED scale.
+
+---
+
+## 🛡️ Acknowledgements
+
+This reproducibility project was developed for educational purposes to demonstrate cross-language ML pipeline recreation. The original Python architecture and this R reproduction both showcase the robustness of modern open-source data science tools.
